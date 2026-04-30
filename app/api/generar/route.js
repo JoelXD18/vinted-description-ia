@@ -1,3 +1,6 @@
+
+Copiar
+
 export async function POST(request) {
   try {
     const { imagen, talla, estado, estilo, precio } = await request.json();
@@ -13,38 +16,33 @@ export async function POST(request) {
       emojis: "Tono desenfadado con emojis relevantes para hacer el anuncio más visual y atractivo.",
     };
  
-    const prompt = `Eres un experto en moda y streetwear con amplio conocimiento de marcas de ropa. Vendes en Vinted España y sabes exactamente qué descripción convierte visitas en ventas.
+    const prompt = `Eres un vendedor experto en moda y streetwear en Vinted España. Tu objetivo es escribir descripciones que vendan, como lo haría una persona real con buen ojo para la moda.
  
-Analiza con detalle la imagen de esta prenda:
+Mira la imagen y escribe DIRECTAMENTE la descripción final. No escribas pasos, no escribas títulos, no uses negritas, no uses guiones de lista. Solo el texto de la descripción seguido de los hashtags.
  
-PASO 1 - IDENTIFICA:
-- Marca (busca logos, etiquetas, parches, bordados, estampados con nombre). Si la reconoces aunque no sea 100% legible, indícala.
-- Tipo de prenda exacto (hoodie, sudadera crewneck, camiseta oversized, cortavientos, etc.)
-- Estilo (streetwear, vintage, Y2K, deportivo, casual, luxury, workwear, etc.)
-- Color(es) exactos
-- Detalles especiales (bordados, estampados, parches, lavado especial, corte, etc.)
+Analiza internamente (sin escribirlo):
+- La marca si aparece en logos, bordados o etiquetas visibles. Si pone un nombre, es esa marca.
+- El tipo de prenda y su estilo (streetwear, vintage, Y2K, deportivo, etc.)
+- El color de forma natural ("amarillo mostaza", "verde botella", no códigos hex)
+- Detalles que llamen la atención a un comprador
  
-PASO 2 - CONTEXTO DE MARCA:
-Si identificas la marca, menciona brevemente por qué es interesante o buscada (ej: "marca muy buscada en el mercado de segunda mano", "collab limitada", "pieza vintage de los 90", "marca streetwear del momento", etc.)
- 
-PASO 3 - GENERA LA DESCRIPCIÓN:
-Datos del vendedor:
-- Talla: ${talla || "no especificada"}
-- Estado: ${estado || "no especificado"}
-- Precio: ${precio ? precio + "€" : "no especificado"}
+Luego escribe una descripción de 4-5 frases en español que:
+- Empiece con la marca y tipo de prenda si la identificas
+- Si es una marca conocida en streetwear/moda, menciona brevemente por qué mola o es buscada
+- Describa el color y detalles de forma natural, como hablaría una persona
+- Indique talla (${talla || "no especificada"}), estado (${estado || "no especificado"}) y precio (${precio ? precio + "€" : "no especificado"}) si están disponibles
+- Termine con un argumento de venta genuino
  
 ${estiloPrompts[estilo] || estiloPrompts.cercano}
  
-Longitud: 4-6 frases con gancho. En español. Sin asteriscos ni markdown. Solo texto plano.
-Si no puedes identificar la marca con seguridad, descríbela por su estilo visual sin inventar.
+Sin asteriscos, sin guiones de lista, sin títulos, sin markdown. Solo texto corrido natural.
  
-PASO 4 - HASHTAGS:
-Añade 10-15 hashtags al final separados por espacios.
-REGLA CRÍTICA: Los hashtags NO pueden tener espacios internos. Usa CamelCase o todo junto.
-✅ Correcto: #RopaSegundaMano #HoodieVintage #Streetwear #MarcaX
-❌ Incorrecto: #ropa segunda mano #hoodie vintage
+Después de la descripción, en una nueva línea, añade 10-15 hashtags separados por espacios.
+IMPORTANTE: Cada hashtag va todo junto sin espacios internos.
+✅ #RopaSegundaMano #HoodieAmarillo #Streetwear
+❌ #ropa segunda mano #hoodie amarillo
  
-Incluye hashtags de: marca, tipo de prenda, estilo, color, talla, términos populares en Vinted España (como #Vinted #SegundaMano #Moda #Vintage #Streetwear #Ropa).`;
+Hashtags deben cubrir: marca, tipo de prenda, estilo, color, talla, y términos populares en Vinted España.`;
  
     const body = {
       model: "openrouter/free",
@@ -63,7 +61,7 @@ Incluye hashtags de: marca, tipo de prenda, estilo, color, talla, términos popu
           ],
         },
       ],
-      max_tokens: 600,
+      max_tokens: 800,
       temperature: 0.7,
     };
  

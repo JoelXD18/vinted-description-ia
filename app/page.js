@@ -103,7 +103,6 @@ export default function Home() {
             ref={fileRef}
             type="file"
             accept="image/*"
-            capture="environment"
             onChange={handleFoto}
             style={{ display: 'none' }}
           />

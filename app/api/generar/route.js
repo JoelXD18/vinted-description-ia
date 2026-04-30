@@ -36,7 +36,7 @@ Al final de la descripción añade entre 5 y 8 hashtags relevantes separados por
 Los hashtags deben incluir: la marca si es visible, tipo de prenda, color, talla si se proporcionó, y términos de búsqueda populares en Vinted España.`;
  
     const body = {
-      model: "google/gemini-2.0-flash-exp:free",
+      model: "meta-llama/llama-4-maverick:free",
       messages: [
         {
           role: "user",

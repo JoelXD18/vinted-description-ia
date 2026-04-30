@@ -1,6 +1,4 @@
 
-Copiar
-
 export async function POST(request) {
   try {
     const { imagen, talla, estado, estilo, precio } = await request.json();

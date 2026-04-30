@@ -13,27 +13,38 @@ export async function POST(request) {
       emojis: "Tono desenfadado con emojis relevantes para hacer el anuncio más visual y atractivo.",
     };
  
-    const prompt = `Eres un experto vendedor de ropa de segunda mano en Vinted España.
-Analiza la imagen de esta prenda y genera una descripción para publicar en Vinted.
+    const prompt = `Eres un experto en moda y streetwear con amplio conocimiento de marcas de ropa. Vendes en Vinted España y sabes exactamente qué descripción convierte visitas en ventas.
  
-Datos adicionales que el vendedor ha indicado:
+Analiza con detalle la imagen de esta prenda:
+ 
+PASO 1 - IDENTIFICA:
+- Marca (busca logos, etiquetas, parches, bordados, estampados con nombre). Si la reconoces aunque no sea 100% legible, indícala.
+- Tipo de prenda exacto (hoodie, sudadera crewneck, camiseta oversized, cortavientos, etc.)
+- Estilo (streetwear, vintage, Y2K, deportivo, casual, luxury, workwear, etc.)
+- Color(es) exactos
+- Detalles especiales (bordados, estampados, parches, lavado especial, corte, etc.)
+ 
+PASO 2 - CONTEXTO DE MARCA:
+Si identificas la marca, menciona brevemente por qué es interesante o buscada (ej: "marca muy buscada en el mercado de segunda mano", "collab limitada", "pieza vintage de los 90", "marca streetwear del momento", etc.)
+ 
+PASO 3 - GENERA LA DESCRIPCIÓN:
+Datos del vendedor:
 - Talla: ${talla || "no especificada"}
 - Estado: ${estado || "no especificado"}
 - Precio: ${precio ? precio + "€" : "no especificado"}
  
-Genera una descripción que incluya:
-1. Tipo de prenda y marca si es visible en la imagen
-2. Color y detalles destacables que se vean
-3. Estado de la prenda
-4. Un argumento de venta atractivo
- 
 ${estiloPrompts[estilo] || estiloPrompts.cercano}
  
-Longitud: 3-5 frases. En español. No uses asteriscos ni markdown. Solo texto plano.
-No inventes información que no puedas ver en la imagen.
+Longitud: 4-6 frases con gancho. En español. Sin asteriscos ni markdown. Solo texto plano.
+Si no puedes identificar la marca con seguridad, descríbela por su estilo visual sin inventar.
  
-Al final de la descripción añade entre 5 y 8 hashtags relevantes separados por espacios.
-Los hashtags deben incluir: la marca si es visible, tipo de prenda, color, talla si se proporcionó, y términos de búsqueda populares en Vinted España.`;
+PASO 4 - HASHTAGS:
+Añade 10-15 hashtags al final separados por espacios.
+REGLA CRÍTICA: Los hashtags NO pueden tener espacios internos. Usa CamelCase o todo junto.
+✅ Correcto: #RopaSegundaMano #HoodieVintage #Streetwear #MarcaX
+❌ Incorrecto: #ropa segunda mano #hoodie vintage
+ 
+Incluye hashtags de: marca, tipo de prenda, estilo, color, talla, términos populares en Vinted España (como #Vinted #SegundaMano #Moda #Vintage #Streetwear #Ropa).`;
  
     const body = {
       model: "openrouter/free",
@@ -52,7 +63,7 @@ Los hashtags deben incluir: la marca si es visible, tipo de prenda, color, talla
           ],
         },
       ],
-      max_tokens: 400,
+      max_tokens: 600,
       temperature: 0.7,
     };
  

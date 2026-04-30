@@ -44,7 +44,7 @@ IMPORTANTE: Cada hashtag va todo junto sin espacios internos.
 Hashtags deben cubrir: marca, tipo de prenda, estilo, color, talla, y términos populares en Vinted España.`;
  
     const body = {
-      model: "google/gemma-4-31b-it:free",
+      model: "google/veo-3.1-fast",
       messages: [
         {
           role: "user",

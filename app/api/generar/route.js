@@ -1,5 +1,7 @@
-export const dynamic = 'force-dynamic'
 
+Copiar
+
+export const dynamic = 'force-dynamic'
 export async function POST(request) {
   try {
     const { imagen, talla, estado, estilo, precio } = await request.json();
@@ -36,12 +38,18 @@ ${estiloPrompts[estilo] || estiloPrompts.cercano}
  
 Sin asteriscos, sin guiones de lista, sin títulos, sin markdown. Solo texto corrido natural.
  
-Después de la descripción, en una nueva línea, añade 10-15 hashtags separados por espacios.
+Después de la descripción deja una línea en blanco y añade entre 10 y 15 hashtags separados por espacios. Esto es OBLIGATORIO, la respuesta está incompleta sin hashtags.
 IMPORTANTE: Cada hashtag va todo junto sin espacios internos.
 ✅ #RopaSegundaMano #HoodieAmarillo #Streetwear
 ❌ #ropa segunda mano #hoodie amarillo
  
-Hashtags deben cubrir: marca, tipo de prenda, estilo, color, talla, y términos populares en Vinted España.`;
+Hashtags deben cubrir: marca, tipo de prenda, estilo, color, talla, y términos populares en Vinted España.
+OBLIGATORIO: Termina SIEMPRE con los hashtags. Si no incluyes hashtags, la respuesta está incompleta.
+ 
+Ejemplo de formato de respuesta:
+Scuffers hoodie cropped en amarillo pastel, una pieza muy buscada del streetwear español. Bordado en relieve con el logo de la marca, corte oversize con capucha y bolsillo canguro. Talla M en estado nuevo, perfecta para looks urbanos. A 65€ es una oportunidad para hacerte con una pieza de Scuffers a buen precio.
+ 
+#Scuffers #Hoodie #Streetwear #AmarilloMostaza #TallaM #RopaSegundaMano #Vinted #Oversize #Capucha #ModaUrbana #VintedEspaña #StreetWearEspaña #RopaNueva`;
  
     const body = {
       model: "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
@@ -91,3 +99,4 @@ Hashtags deben cubrir: marca, tipo de prenda, estilo, color, talla, y términos 
     return Response.json({ error: err.message }, { status: 500 });
   }
 }
+ 
